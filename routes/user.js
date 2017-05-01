@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.send('got to GET /wiki/');
 });
 
+router.get('/users', function(req, res) {
+
+})
+
 module.exports = router;

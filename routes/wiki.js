@@ -14,28 +14,22 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-
-  // STUDENT ASSIGNMENT:
-  // add definitions for `title` and `content`
-  Page.create({
-    title: req.body.title,
-    content: req.body.content
+  User.findOrCreate({
+    where: {
+      name: req.body.name,
+      email: req.body.email
+    }
   })
-    .then(function(savedPage) {
-      console.log("savedPage", savedPage);
-      res.redirect(savedPage.route);
+  .then(function(values) {
+    var user = values[0];
+      return Page.create(req.body).then(function (page) {
+      return page.setAuthor(user);
+    })
   })
-  .catch(next);
-
-  // Alternate way to add a new page to our database table
-  // reference: https://learn.fullstackacademy.com/workshop/572372d780f8bb03009db806/content/57238a922cce560300a5ac55/text
-  // Page.build({
-  //   title: req.body.title,
-  //   content: req.body.content
-  // })
-  //   .save()
-  //   .then(res.json(req.body));
-
+  .then(function(savedPage) {
+      res.redirect(savedPage.route)
+})
+.catch(next);
 });
 
 router.get('/add', function(req, res, next) {
@@ -49,7 +43,6 @@ router.get('/:urlTitle', function (req, res, next) {
     }
   })
   .then(function(foundPage){
-    // res.send(foundPage);
     res.render('../views/wikipage', { foundPage: foundPage } );
   })
   .catch(next);

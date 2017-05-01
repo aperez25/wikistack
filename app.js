@@ -16,25 +16,21 @@ app.set('view engine', 'html');
 // when res.render works with html files, have it use nunjucks to do so
 app.engine('html', nunjucks.render);
 
-
 // logging middleware
 app.use(morgan('dev'));
 
 // body parsing middleware
 app.use(bodyParser.urlencoded({ extended: true })); // for HTML form submits
-app.use(bodyParser.json()); // would be for AJAX requests
+app.use(bodyParser.json());
 
 app.use('/', routes);
 
-// Where your server and express app are being defined:
-// ... other stuff
 // .sync creates the tables
-models.User.sync({})
+models.User.sync({ force: true })
 .then(function () {
-    return models.Page.sync({})
+    return models.Page.sync({force: true })
 })
 .then(function () {
-    // make sure to replace the name below with your express app
     app.listen(3000, function () {
         console.log('Server is listening on port 3000!');
     });
@@ -43,5 +39,3 @@ models.User.sync({})
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-// // modular routing that uses io inside it
-// app.use('/', makesRouter(io));

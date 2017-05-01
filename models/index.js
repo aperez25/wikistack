@@ -63,7 +63,7 @@ var User = db.define('user', {
     }
 });
 
-// Page.belongsTo(User, { as: 'author' });
+Page.belongsTo(User, { as: 'author' });
 
 module.exports = {
   db: db,
