@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
-var models = require('../models');
+const models = require('../models');
 const nunjucks = require('nunjucks');
-var Page = models.Page;
-var User = models.User;
+const Page = models.Page;
+const User = models.User;
 
 router.get('/', function(req, res, next) {
   Page.findAll()

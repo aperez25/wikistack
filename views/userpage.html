@@ -7,14 +7,13 @@
   {% endfor %}-->
 
 
-  <h3>{{ foundPage.title }}<small> (<a href="PLACEHOLDER">Similar</a>)</small></h3>
-  <h4>by <a href="{{ foundPage.authorid }}">{{ foundPage.authorid }}</a></h4>
+  <h3>User: {{ user.name }}<small> (<a href="PLACEHOLDER">Similar</a>)</small></h3>
+  <h4>Published Articles: <a href="{{ user.id }}">{{ userrid }}</a></h4>
   <div>PLACEHOLDER TAG LIST</div>
   <hr/>
-  <div>{{ foundPage.name }} E</div>
-  <div class="page-body">{{foundPage.content}}</div>
+  <div> PLACEHOLDER FOR PAGES  </div>
+  <div class="page-body"> ANOTHER PLACEHOLDER</div>
   <hr/>
   <a href="PLACEHOLDER_URL_TITLE/edit" class="btn btn-primary">edit this page</a>
   <a href="PLACEHOLDER_URL_TITLE/delete" class="btn btn-danger">delete this page</a>
 {% endblock %}
-
