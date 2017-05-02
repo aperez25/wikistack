@@ -38,11 +38,9 @@ router.get('/add', function(req, res, next) {
 });
 
 router.get('/search', function(req, res, next) {
-  var tag = req.query.status
-  res.render('../views/searchtags');
-  if (tag) {
+ // var tag = req.query.tags;
 
-  }
+  res.render('../views/searchtags');
 });
 
 router.get('/:urlTitle', function (req, res, next) {
