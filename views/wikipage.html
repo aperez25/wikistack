@@ -8,8 +8,8 @@
 
 
   <h3>{{ foundPage.title }}<small> (<a href="PLACEHOLDER">Similar</a>)</small></h3>
-  <h4>by <a href="{{ foundPage.authorid }}">{{ foundPage.authorid }}</a></h4>
-  <div>PLACEHOLDER TAG LIST</div>
+  <h4>by <a href="/users/{{ foundPage.authorid }}">{{ foundPage.author.name }}</a></h4>
+  <div> tags: {{ foundPage.tags }} </div>
   <hr/>
   <div>{{ foundPage.name }} </div>
   <div class="page-body">{{foundPage.content}}</div>

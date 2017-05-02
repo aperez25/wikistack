@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  console.log(req.body)
   User.findOrCreate({
     where: {
       name: req.body.name,
@@ -36,11 +37,22 @@ router.get('/add', function(req, res, next) {
   res.render('../views/addpage');
 });
 
+router.get('/search', function(req, res, next) {
+  var tag = req.query.status
+  res.render('../views/searchtags');
+  if (tag) {
+
+  }
+});
+
 router.get('/:urlTitle', function (req, res, next) {
   Page.findOne({
     where: {
       urlTitle: req.params.urlTitle
-    }
+    },
+    include: [
+      {model: User, as: 'author'}
+    ]
   })
   .then(function(foundPage){
     res.render('../views/wikipage', { foundPage: foundPage } );

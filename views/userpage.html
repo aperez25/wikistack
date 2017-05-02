@@ -8,11 +8,15 @@
 
 
   <h3>User: {{ user.name }}<small> (<a href="PLACEHOLDER">Similar</a>)</small></h3>
-  <h4>Published Articles: <a href="{{ user.id }}">{{ userrid }}</a></h4>
-  <div></div>
   <hr/>
-  <div> PLACEHOLDER FOR PAGES  </div>
-  <div class="page-body"> ANOTHER PLACEHOLDER</div>
+  <h4>Published Articles:</h4>
+  <div>
+  <ul class="list-unstyled">
+    {% for page in pages %}
+      <li><a href="/wiki/{{ page.urlTitle }}">{{ page.title }}</a></li>
+    {% endfor %}
+  </ul>
+  </div>
   <hr/>
   <a href="PLACEHOLDER_URL_TITLE/edit" class="btn btn-primary">edit this page</a>
   <a href="PLACEHOLDER_URL_TITLE/delete" class="btn btn-danger">delete this page</a>

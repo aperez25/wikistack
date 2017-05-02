@@ -1,9 +1,9 @@
-var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://localhost:5432/wikistack', {
+const Sequelize = require('sequelize');
+const db = new Sequelize('postgres://localhost:5432/wikistack', {
     logging: false
 });
 
-var Page = db.define('page', {
+const Page = db.define('page', {
   title: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -12,7 +12,8 @@ var Page = db.define('page', {
   urlTitle: {
     type: Sequelize.STRING,
     allowNull: false,
-    notEmpty: true
+    notEmpty: true,
+    unique: true
   },
   content: {
     type: Sequelize.TEXT,
@@ -23,21 +24,28 @@ var Page = db.define('page', {
     type: Sequelize.ENUM('open', 'closed'),
     allowNull: true,
     defaultValue: null,
-    isIn: [['open', 'closed']],
-    notEmpty: true
   },
   date: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
-  }
-},{
-    getterMethods: {
-      route: function()  { return '/wiki/' + this.urlTitle }
-    },
-  }
-);
+  },
+  tags: {
+      type: Sequelize.ARRAY(Sequelize.TEXT),
+      defaultValue: [],
+      set: function (tags) {
+          tags = typeof tags !== 'string' ? tags : tags.split(',').map(str => str.trim())
 
-Page.hook('beforeValidate', function generateUrlTitle(page) {
+          this.setDataValue('tags', tags);
+      }
+  }
+  },
+  {
+  getterMethods: {
+    route: function()  { return '/wiki/' + this.urlTitle }
+  }
+  });
+
+Page.hook('beforeValidate', function(page) {
   if (page.title) {
     // Removes all non-alphanumeric characters from title
     // And make whitespace underscore
