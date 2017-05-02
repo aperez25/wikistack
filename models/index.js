@@ -30,20 +30,30 @@ const Page = db.define('page', {
     defaultValue: Sequelize.NOW
   },
   tags: {
-      type: Sequelize.ARRAY(Sequelize.TEXT),
-      defaultValue: [],
-      set: function (tags) {
-          tags = typeof tags !== 'string' ? tags : tags.split(',').map(str => str.trim())
+    type: Sequelize.ARRAY(Sequelize.TEXT),
+    defaultValue: [],
+    set: function (tags) {
+      tags = typeof tags !== 'string' ? tags : tags.split(',').map(str => str.trim())
 
-          this.setDataValue('tags', tags);
+      this.setDataValue('tags', tags);
       }
-  }
-  },
+  }},
   {
   getterMethods: {
     route: function()  { return '/wiki/' + this.urlTitle }
+  },
+  classMethods: {
+      findByTag: function (tag) {
+          return this.findAll({
+              where: {
+                  tags: {
+                      $contains: [tag]
+                  }
+              }
+          });
+      }
   }
-  });
+});
 
 Page.hook('beforeValidate', function(page) {
   if (page.title) {

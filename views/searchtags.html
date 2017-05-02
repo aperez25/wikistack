@@ -17,11 +17,11 @@
     </div>
 
   <hr/>
-  <h4>Articles tagged with {{ req.query.status }}:</h4>
   <div>
   <ul class="list-unstyled">
     {% for page in pages %}
-      <li><a href="/wiki/{{ page.urlTitle }}">{{ page.title }}</a></li>
+    <h4>Tagged Articles:</h4>
+      <li><a href="/wiki/{{ page.urlTitle }}">{{ page.title }}, tags: {{ page.tags }} </a></li>
     {% endfor %}
   </ul>
   </div>

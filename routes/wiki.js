@@ -37,10 +37,16 @@ router.get('/add', function(req, res, next) {
   res.render('../views/addpage');
 });
 
-router.get('/search', function(req, res, next) {
- // var tag = req.query.tags;
+router.get('/search', (req, res, next) => {
+    const tag = req.query.tags;
+    Page.findByTag(tag)
+        .then(pages => {
+          console.log(pages)
+        res.render('../views/searchtags', { pages })
+        }
+        )
+        .catch(next);
 
-  res.render('../views/searchtags');
 });
 
 router.get('/:urlTitle', function (req, res, next) {
